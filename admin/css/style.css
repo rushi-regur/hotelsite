@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+
+/********************************* managePlaces.php*********************************/
+
+.managePlacesTable	{width: 80%; margin-left: auto; margin-right: auto;}
+.managePlacesTr		{height:30px;}
+.managePlacesTh 		{text-align: center; background-color: #999;}
+.managePlacesOddRow {background-color: #EEE;}
+.managePlacesEvenRow{background-color: #CCC;}
