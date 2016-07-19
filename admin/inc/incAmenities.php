@@ -6,22 +6,24 @@ $successMessage = '';
 
 function printAmenitiesInTable()
 {
+	global $db;
 	$results = getAllAmenities();
 	displayAmenitiesAndLinks($results);
 }
 
 function getAllAmenities()
 {
+	global $db;
 	$query = "SELECT * FROM amenities ORDER BY name";
-	$results = mysql_query($query) or die(mysql_error());
+	$results = mysqli_query($db,$query) or die(mysql_error());
 	return $results;
 }
 
-
+/*
 function displayAmenitiesAndLinks($results)
 {
 	$odd=1;
-	while($row=mysql_fetch_assoc($results))
+	while($row=mysqli_fetch_assoc($results))
 	{
 		echo $odd==1 ? '<tr class=managePlacesOddRow>' : '<tr class=managePlacesEvenRow>';
 		$odd=~$odd;
@@ -36,7 +38,7 @@ function displayAmenitiesAndLinks($results)
 		echo '</tr>';
 	}
 }
-
+*/
 if($_SERVER['REQUEST_METHOD']=="GET")
 {
 	if(isset($_GET['updated']))

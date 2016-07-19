@@ -9,6 +9,8 @@
 	<title><?php echo $pageTitle;?></title>
 	<meta charset="${encoding}">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="../../js/jquery.js" type="text/javascript">
+	</script>
 	
 </head>
 
