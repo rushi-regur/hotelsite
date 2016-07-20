@@ -2,9 +2,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors','On');
 	$pageTitle='Manage Amenities';
+	include "inc/header.php";
 	include "../inc/connect.php";
 	include "inc/incManageAmenities.php";
 	include "../inc/globalFunctions.php";
+	
 ?>
 
 <div id=container>
@@ -24,3 +26,5 @@ ini_set('display_errors','On');
 	</div>
 	
 </div>
+
+<?php include "inc/footer.php";?>

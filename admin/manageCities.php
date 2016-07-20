@@ -2,11 +2,12 @@
 	error_reporting(E_ALL);
 	ini_set('display_errors','On');
 	$pageTitle='Manage Cities';
+	include "inc/header.php";
 	include "../inc/globalFunctions.php";
 	include "../inc/connect.php";
 	include "inc/incCities.php";
-	
 	include "inc/incManageCities.php";
+	
 	
 	
 ?>
@@ -50,3 +51,5 @@
 	</div>
 	
 </div>
+
+<?php include "inc/footer.php";?>

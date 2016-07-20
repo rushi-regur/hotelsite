@@ -4,7 +4,6 @@
 	$pageTitle='Manage Amenities';
 	include "../inc/globalFunctions.php";
 	include "../inc/connect.php";
-	include "inc/template.php";
 	include "inc/header.php";
 ?>
 

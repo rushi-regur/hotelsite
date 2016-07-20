@@ -49,6 +49,21 @@ function populateDropDown($data,$selectedKey)
 	}
 }
 
+
+function getAllHotels()
+{
+	global $db;
+	$stateArray=array();
+	$query = "SELECT id, name FROM hotel ORDER BY name";
+	$results = mysqli_query($db,$query) or die(mysql_error());
+	while($row=mysqli_fetch_assoc($results))
+	{
+		$stateArray[]=$row;
+	}
+	
+	return $stateArray;
+}
+
 //To fetch all the states along with ID used in incstates.php and incCities.php to populate dropdown
 function getAllStates()
 {
