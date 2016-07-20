@@ -2,10 +2,10 @@
 	error_reporting(E_ALL);
 	ini_set('display_errors','On');
 	$pageTitle='Manage Cities';
+	include "../inc/globalFunctions.php";
 	include "../inc/connect.php";
 	include "inc/incCities.php";
 	include "inc/template.php";
-	include "../inc/globalFunctions.php";
 	include "inc/header.php";
 ?>
 
@@ -16,18 +16,19 @@
 	
 		<h1>Manage Places</h1>
 		
-		<?php echo "<p style=\"text-align:center; color:green;\">$successMessage</p>";?>
+		<?php $successMessage=sucessMsg('City');?>
+			<p style="text-align:center; color:green;"><?php echo $successMessage;?></p>
 		
 		<div align="center">
 			<form method="POST" id="stateDropDown" action="#">
 				<input type="hidden" name="dropDownSet" value="true">
 				
 				Select State:
-				<select name="stateDropDown" id="city">
+				<select name="stateDropDown" id="state">
 					
 					<option value="0"> </option>
 					
-					<?php allStatesInDropDown();?>
+					<?php allStatesInDropDown($stateId);?>
 				</select>
 				
 			</form>
@@ -46,7 +47,23 @@
 					<th colspan="2" class="managePlacesTh">List of Cities<a href="managecities.php">[ADD]</a></th>
 				</tr>
 				
-				<?php printCitiesInTable();?>
+				<?php
+					$class="evenRow";
+					$cityArray = getAllCities($stateId);
+
+					foreach($cityArray as $value)
+					{
+						$class=oddEvenRows($class);	?>				
+							
+							<tr class="<?php echo "$class";?>">
+								<td style="width:70%"><?php echo $value['name'];?></td>
+								<td>
+									<a href="managecities.php?action=edit&id=<?php echo $value['id'];?>">[EDIT]</a>
+									<a id="delete" href="#" onclick="deleteCities('<?php echo $value['id']; ?>')">[DELETE]</a>
+								</td>
+							</tr>
+											
+				<?php }?>
 				
 			</table>
 		</form>
@@ -58,7 +75,7 @@
 <script type="text/javascript">
 
 $(function() {
-    $('#city').change(function() {
+    $('#state').change(function() {
         this.form.submit();
     });
 });

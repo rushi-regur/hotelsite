@@ -1,6 +1,6 @@
 <?php 
 $cityName = '';
-$stateId = 0;
+//$stateId = 0;
 $action = "add";
 
 $errMsg = array();
@@ -9,12 +9,18 @@ function validateCity()
 {
 	global $errMsg;
 	$count = count($errMsg);
-	
 	$name = $_POST['cityName'];
 	if(!preg_match("/^[a-zA-Z'-]+$/",$name))
 	{
 		$errMsg[]  = "Enter only characters and Numbers";
 	}
+	
+	$stateId = $_POST['stateDropDown'];
+	if($stateId == 0)
+	{
+		$errMsg[] = "Please Select a state";
+	}
+	
 	
 	if(count($errMsg)>0)
 	{
@@ -32,7 +38,6 @@ function addCity()
 	if(validateCity())
 	{
 		global $db;
-		echo "In add";
 		$name = $_POST['cityName'];
 		$stateId = $_POST['stateDropDown'];
 		$query = "INSERT INTO city (name, stateId) VALUES ('$name', '$stateId')";
@@ -41,36 +46,29 @@ function addCity()
 	}
 }
 
-function displayCity()
+function displayCity($id)
 {
-	global $db;
-	global $cityName, $stateId, $action, $id;
-	
+	global $db; 
+
 	$query = "SELECT name, stateID FROM city WHERE id = {$id}";
 	$results = mysqli_query($db,$query) or die(mysql_error());
 	$row = mysqli_fetch_assoc($results);
 	$cityName = $row['name'];
 	$stateId = $row['stateID'];
 	
-
-}
-
-function displayStateOfCity()
-{
-	global $stateId;
-	allStatesInDropDown();
+	$data = array('cityName'=>$cityName, 'stateId'=>$stateId);
+	return $data;
 }
 
 function deleteCity()
 {
 	global $db;
-	echo "In Delete";
 	$query = "DELETE FROM city WHERE id = {$_POST['id']}";
 	mysqli_query($db,$query) or die(mysql_error());
 	header("LOCATION: cities.php?deleted=1");
 }
 
-function editCity()
+function editCity($id)
 {
 	if(validateCity())
 	{
@@ -81,18 +79,19 @@ function editCity()
 	}
 	else 
 	{	
-		displayCity();	
+		$data = displayCity($id);
+		return $data;
 	}
 }
 
-if($_SERVER['REQUEST_METHOD']=="POST")
+if(isPost())
 {
 	$action = $_POST['action'];
 	$id = $_POST['id'];
 	
 	if($action == "edit")
 	{
-		editCity();
+		$data = editCity($id);
 	}
 	
 	if($action == "add")
@@ -106,14 +105,15 @@ if($_SERVER['REQUEST_METHOD']=="POST")
 	}
 }
 
-elseif($_SERVER['REQUEST_METHOD']=="GET")
+elseif(isGet())
 {
+
 	$id = (isset($_GET['id']))?$_GET['id']:0;
 	$action = (isset($_GET['action']))?$_GET['action']:'add';
 	
 	if($id>0)
 	{
-		displayCity();
+		$data = displayCity($id);
 	}
 }
 

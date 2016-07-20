@@ -1,5 +1,29 @@
 <?php 
+/*
+function printTable()
+{
+	$class="evenRow";
+	$stateArray = getAllStates();
+	
+	foreach($stateArray as $value)
+	{
+		$class=oddEvenRows($class);
+echo <<<ENDHTML
+								
+								<tr class="echo "$class";">
+									<td style="width:70%">echo $value['name'];</td>
+									<td>
+										<a href="managestate.php?action=edit&id=<?php echo $value['id'];?>">[EDIT]</a>
+										<a id="delete" href="#" onclick="deleteStates('<?php echo $value['id']; ?>')">[DELETE]</a>
+									</td>
+								</tr>
+ENDHTML
+	}
+												
+}
 
+
+*/
 //For incAmenities.php to display all amenities in a table
 function displayAmenitiesAndLinks($results)
 {
@@ -23,6 +47,7 @@ function displayAmenitiesAndLinks($results)
 
 
 //For incCities.php to display all cities in a table
+/*
 function displayCitiesAndLinks($results)
 {
 	$odd=1;
@@ -42,4 +67,5 @@ function displayCitiesAndLinks($results)
 		echo '</tr>';
 	}
 }
+*/
 ?>

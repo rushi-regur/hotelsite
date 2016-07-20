@@ -1,55 +1,34 @@
 <?php
 
-global $message;
-$message = '';
-$successMessage = '';
-$stateId = '';
-
-
-function printCitiesInTable()
+function getAllCities($stateId)
 {
-	if($_SERVER['REQUEST_METHOD']=="POST")
+	if($stateId>0)
 	{
-		global $db;
-		$results = getAllCities($db);
-		displayCitiesAndLinks($results);
+		global $db;//, $stateId;
+		$query = "SELECT id, name FROM city WHERE stateId = {$stateId} ORDER BY name";
+		$results = mysqli_query($db,$query) or die(mysqli_error($db));
+		while($row=mysqli_fetch_assoc($results))
+		{
+			$cityArray[]=$row;
+		}
+		
+		return $cityArray;
 	}
-}
-
-function getAllCities()
-{
-	global $db, $stateId;
-	$query = "SELECT id, name FROM city WHERE stateId = {$stateId} ORDER BY name ";
-	$results = mysqli_query($db,$query) or die(mysqli_error($db));
-	return $results;
-}
-
-
-if($_SERVER['REQUEST_METHOD']=="GET")
-{
-	if(isset($_GET['updated']))
+	else 
 	{
-		$successMessage = "City has been updated successfully";
-	}
-	if(isset($_GET['added']))
-	{
-		$successMessage = "City has been added successfully";
-	}
-	if(isset($_GET['deleted']))
-	{
-		$successMessage = "City has been deleted successfully";
-	}
-}
-
-if($_SERVER['REQUEST_METHOD']=="POST")
-{
-	
-	if(isset($_POST['dropDownSet'])?$_POST['dropDownSet']:0)
-	{
-		$stateId = $_POST['stateDropDown'];
+		$cityArray = array();
+		return $cityArray;
 	}
 }
 
 
+if(isPost())
+{
+	$stateId = $_POST['stateDropDown'];
+}
+else
+{
+	$stateId = 0;
+}
 
 ?>

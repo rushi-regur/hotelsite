@@ -40,14 +40,14 @@ function addState()
 	}
 }
 
-function displayState()
+function displayState($id)
 {
 	global $db;
-	global $stateName, $action, $id;
 	$query = "SELECT name FROM state WHERE id = {$id}";
 	$results = mysqli_query($db,$query) or die(mysql_error());
 	$row = mysqli_fetch_assoc($results);
 	$stateName = $row['name'];
+	return $stateName;
 }
 
 function editState()
@@ -60,7 +60,8 @@ function editState()
 		header("LOCATION: states.php?updated=1");
 	}
 	else {
-		displayState();
+		$stateName = displayState($id);
+		return $statename;
 	}
 }
 
@@ -81,7 +82,7 @@ if($_SERVER['REQUEST_METHOD']=="POST")
 
 	if($action == "edit")
 	{
-		editState();
+		$stateName = editState($id);
 	}
 
 	if($action == "add")
@@ -103,7 +104,7 @@ elseif($_SERVER['REQUEST_METHOD']=="GET")
 	
 	if($id>0)
 	{
-		displayState();
+		$stateName = displayState($id);
 	}
 
 }

@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors','On');
 	$pageTitle='Manage Amenities';
 	include "../inc/connect.php";
-	include "inc/incAmenities.php";
 	include "inc/incManageAmenities.php";
 	include "../inc/globalFunctions.php";
 ?>

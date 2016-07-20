@@ -2,20 +2,24 @@
 	error_reporting(E_ALL);
 	ini_set('display_errors','On');
 	$pageTitle='Manage Cities';
+	include "../inc/globalFunctions.php";
 	include "../inc/connect.php";
 	include "inc/incCities.php";
+	
 	include "inc/incManageCities.php";
-	include "../inc/globalFunctions.php";
 	
 	
 ?>
 
 <div id=container>
+
 <?php global $errMsg;?>	
 	<div class=originalPage>
 	
 		<h1>Manage Cities</h1>
 		<?php print_errors($errMsg);?>
+		
+		
 		
 		<form name="manageCity" action="" method="POST">
 			<input type="hidden" name="action" value="<?php echo "$action";?>">
@@ -24,7 +28,7 @@
 			<table>
 			<tr>
 				<td>Name of city</td>
-				<td><input type="text" name="cityName" value="<?php echo "$cityName";?>"></td>
+				<td><input type="text" name="cityName" value="<?php echo isset($data)? $data['cityName'] : "";?>"></td>
 			</tr>
 			
 			<tr>
@@ -32,7 +36,7 @@
 			<td>
 				<select name="stateDropDown" id="city">
 					<option value="0"> </option>
-					<?php displayStateOfCity();?>
+					<?php allStatesInDropDown(isset($data)? $data['stateId'] : "");?>
 				</select>
 			</td>
 			

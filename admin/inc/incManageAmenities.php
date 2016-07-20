@@ -38,14 +38,14 @@ function addAmenity()
 	}
 }
 
-function displayAmenity()
+function displayAmenity($id)
 {
 	global $db;
-	global $amenityName, $action, $id;
 	$query = "SELECT name FROM amenities WHERE id = {$id}";
 	$results = mysqli_query($db,$query) or die(mysql_error());
 	$row = mysqli_fetch_assoc($results);
-		$amenityName = $row['name'];
+	$amenityName = $row['name'];
+	return $amenityName;
 	
 }
 
@@ -57,7 +57,7 @@ function deleteAmenity()
 	header("LOCATION: amenities.php?deleted=1");
 }
 
-function editAmenity()
+function editAmenity($id)
 {
 	if(validateAmenity())
 	{
@@ -68,7 +68,7 @@ function editAmenity()
 	}
 	else
 	{
-		displayAmenity();
+		$amenityName = displayAmenity($id);
 	}
 }
 
@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD']=="POST")
 	
 	if($_POST['action'] == "edit")
 	{
-		editAmenity();
+		$amenityName = editAmenity($id);
 	}
 	
 	if($_POST['action'] == "add")
@@ -100,7 +100,7 @@ elseif($_SERVER['REQUEST_METHOD']=="GET")
 
 	if($id>0)
 	{
-		displayAmenity();
+		$amenityName = displayAmenity($id);
 	}
 }
 

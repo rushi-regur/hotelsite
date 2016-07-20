@@ -1,10 +1,39 @@
 <?php
+
+//*********************************Utility Functions *******************************************
+function isPost()
+{
+	if($_SERVER['REQUEST_METHOD']=="POST")
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+
+function isGet()
+{
+	if($_SERVER['REQUEST_METHOD']=="GET")
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
 //To print an array of error messages
 function print_errors($errors)
 {
 	foreach($errors as $error)
 	{
 		echo $error;
+		echo " | ";
 	}
 }
 
@@ -35,17 +64,29 @@ function getAllStates()
 	return $stateArray;
 }
 
-function allStatesInDropDown()   //Call this function to get all states in dropdown and retain value while post method
+// To fetch all amenities and return an array that could be printed directly as done in amenities.php
+function getAllAmenities()
 {
-	global $stateId;
-	$results = getAllStates();
-	while($row = mysqli_fetch_assoc($results))
+	global $db;
+	$query = "SELECT id, name FROM amenities ORDER BY name";
+	$results = mysqli_query($db,$query) or die(mysqli_error($db));
+	while($row=mysqli_fetch_assoc($results))
 	{
-		$row = array_values($row);
-		$data = array ($row[0]=>$row[1]);
-		populateDropDown($data,$stateId);
+		$amenitiesArray[]=$row;
 	}
 
+	return $amenitiesArray;
+}
+
+function allStatesInDropDown($stateId)   //Call this function to get all states in dropdown and retain value while post method
+{
+	echo "In allStatesInDropDown $stateId";
+	$stateArray = getAllStates();
+	foreach($stateArray as $value)
+	{
+		$data = array ($value['id']=>$value['name']);
+		populateDropDown($data, $stateId);
+	}
 }
 
 function oddEvenRows($class)

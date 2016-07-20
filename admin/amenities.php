@@ -2,10 +2,9 @@
 	error_reporting(E_ALL);
 	ini_set('display_errors','On');
 	$pageTitle='Manage Amenities';
-	include "../inc/connect.php";
-	include "inc/incamenities.php";
-	include "inc/template.php";
 	include "../inc/globalFunctions.php";
+	include "../inc/connect.php";
+	include "inc/template.php";
 	include "inc/header.php";
 ?>
 
@@ -15,8 +14,10 @@
 	<div class=originalPage>
 	
 		<h1>Manage Amenities</h1>
-		<?php echo "<p style=\"text-align:center; color:green;\">$successMessage</p>";?>
 		
+		<?php $successMessage=sucessMsg('City');?>
+			<p style="text-align:center; color:green;"><?php echo $successMessage;?></p>
+				
 		
 		<form method="POST" id="cities" action="manageamenities.php" name="submitForDelete">
 		
@@ -29,7 +30,23 @@
 					<th colspan="2" class="managePlacesTh">List of Amenities<a href="manageamenities.php">[ADD]</a></th>
 				</tr>
 				
-				<?php printAmenitiesInTable();?>
+				<?php
+					$class="evenRow";
+					$amenitiesArray = getAllAmenities();
+
+					foreach($amenitiesArray as $value)
+					{
+						$class=oddEvenRows($class);	?>				
+							
+							<tr class="<?php echo "$class";?>">
+								<td style="width:70%"><?php echo $value['name'];?></td>
+								<td>
+									<a href="manageamenities.php?action=edit&id=<?php echo $value['id'];?>">[EDIT]</a>
+									<a id="delete" href="#" onclick="deleteAmenities('<?php echo $value['id']; ?>')">[DELETE]</a>
+								</td>
+							</tr>
+											
+				<?php }?> 
 			
 			</table>
 		</form>
