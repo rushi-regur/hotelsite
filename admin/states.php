@@ -3,8 +3,6 @@
 	ini_set('display_errors','On');
 	$pageTitle='Manage Places';
 	include "../inc/connect.php";
-	include "inc/incstates.php";
-	include "inc/template.php";
 	include "../inc/globalFunctions.php";
 	include "inc/header.php";
 ?>
@@ -15,7 +13,9 @@
 	<div class=originalPage>
 	
 		<h1>Manage Places</h1>
-		<?php echo "<p style=\"text-align:center; color:green;\">$successMessage</p>";?>
+		
+		<?php $successMessage=sucessMsg('State');?>
+			<p style="text-align:center; color:green;"><?php echo $successMessage;?></p>
 		
 		
 		<form method="POST" id="cities" action="managestate.php" name="submitForDelete">
@@ -23,19 +23,35 @@
 			<input type="hidden" name="dropDownSet" value="false">		
 			<input type="hidden" name="action" value="delete">
 			<input type="hidden" name="id" value=""> 
+			
 			<table class="managePlacesTable">
 			
 				<tr class="managePlacesTr">
 					<th colspan="2" class="managePlacesTh">List of States<a href="managestate.php">[ADD]</a></th>
 				</tr>
 				
-				<?php printStatesinTable();?>
-			
+				
+				<?php
+					$class="evenRow";
+					$stateArray = getAllStates();
+
+					foreach($stateArray as $value)
+					{
+						$class=oddEvenRows($class);	?>				
+							
+							<tr class="<?php echo "$class";?>">
+								<td style="width:70%"><?php echo $value['name'];?></td>
+								<td>
+									<a href="managestate.php?action=edit&id=<?php echo $value['id'];?>">[EDIT]</a>
+									<a id="delete" href="#" onclick="deleteStates('<?php echo $value['id']; ?>')">[DELETE]</a>
+								</td>
+							</tr>
+											
+				<?php }?>
 			</table>
 		</form>
 		
 	</div>
-
 
 </div>
 
@@ -47,4 +63,5 @@ function deleteStates(id){
 	
 }
 </script>
+
 <?php include "inc/footer.php";?>

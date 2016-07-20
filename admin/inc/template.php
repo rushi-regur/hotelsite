@@ -1,24 +1,4 @@
 <?php 
-// For incStates.php to display all states in a table
-function displayStateAndLinks($results)
-{
-	$odd=1;
-	while($row=mysqli_fetch_assoc($results))
-	{
-		echo $odd==1 ? '<tr class=managePlacesOddRow>' : '<tr class=managePlacesEvenRow>';
-		$odd=~$odd;
-		echo '<td style="width:70%">';
-		echo $row['name'];
-		echo '</td>';
-			
-		echo '<td>';
-		echo '<a href="managestate.php?action=edit&id=' . $row['id'] . '">[EDIT]</a>';
-		//echo ' <a href="managestate.php?action=delete&id=' . $row['id'] . '">[DELETE]</a>';
-		echo '<a id="delete" href="#" onclick="deleteStates(' . $row['id'] . ');">[DELETE]</a>';
-		echo '</td>';
-		echo '</tr>';
-	}
-}
 
 //For incAmenities.php to display all amenities in a table
 function displayAmenitiesAndLinks($results)

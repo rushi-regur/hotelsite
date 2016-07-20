@@ -7,3 +7,5 @@
 .managePlacesTh 		{text-align: center; background-color: #999;}
 .managePlacesOddRow {background-color: #EEE;}
 .managePlacesEvenRow{background-color: #CCC;}
+.oddRow {background-color: #EEE;}
+.evenRow{background-color: #CCC;}

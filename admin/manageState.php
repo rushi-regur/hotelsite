@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors','On');
 	$pageTitle='Manage State';
 	include "../inc/connect.php";
-	include "inc/incstates.php";
 	include "inc/incManageState.php";
 	include "../inc/globalFunctions.php";
 ?>
