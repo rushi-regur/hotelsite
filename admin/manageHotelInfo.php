@@ -7,10 +7,12 @@
 ?>
 
 	<div id=container>
-		
+	<?php global $errMsg;?>	
 		<div class=originalPage>
 		
 			<h1>Manage Hotels Info</h1>
+			
+			<?php print_errors($errMsg);?>
 			
 			<form  method="POST" action=""  class="hotelInfo">
 			
@@ -88,7 +90,11 @@
 					
 					<tr>
 						<td>Is Featured</td>
-						<td><input type="checkbox" name="isFeatured" <?php if($isFeatured == 'on'){echo "checked=\"checked\"";}?>></td>
+						<!-- <td><input type="checkbox" name="isFeatured" <?php //if($isFeatured == 'on'){echo "checked=\"checked\"";}?>></td> -->
+						<td>
+							<input type="radio" name="isFeatured" value="yes"<?php if($isFeatured=='yes'){echo "checked=checked";}?>>Yes
+							<input type="radio" name="isFeatured" value="no"<?php if($isFeatured=='no'){echo "checked=checked";}?>>No
+						</td>
 					</tr>
 					
 					
