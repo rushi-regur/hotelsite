@@ -31,6 +31,7 @@
 								<option value="0"> </option>
 								<?php allStatesInDropDown($stateId);?>
 							</select>
+							<input type="hidden" name="onlyStateSubmit" id="onlyStateSubmit">
 						</td>
 					</tr>
 	
@@ -114,6 +115,7 @@
 	
 	$(function() {
 	    $('#state').change(function() {
+		    jQuery('#onlyStateSubmit').val('true');
 	        this.form.submit();
 	    });
 	});

@@ -70,7 +70,15 @@ function addHotel($inputSet)
 {
 	if(validateHotel($inputSet))
 	{
+		global $db;
+		extract ($inputSet);
 		
+		$query = "INSERT INTO hotel (name, stateId, cityId, addressLine1, addressLine2, addressLandmark, pinCode, stars, description, isFeatured)
+				VALUES
+				('$hotelName', '$stateId', '$cityId', '$add1', '$add2', '$landmark', '$pincode', '$star', '$description', '$isFeatured')"; //?????Can we use foreach loop here
+		
+		mysqli_query($db,$query) or die(mysqli_error($db));
+		header("LOCATION: manageHotelPhotos.php");
 	}
 }
 
@@ -120,8 +128,7 @@ if(isPost())
 	
 	//extract
 	
-	
-	if($action = "add")
+	if($action = "add" && $_POST['onlyStateSubmit']!= "true")
 	{
 		addHotel($inputSet);
 	}
