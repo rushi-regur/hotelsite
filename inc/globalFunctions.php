@@ -41,6 +41,7 @@ function print_errors($errors)
 //To populate dropdown by passing an array in key=>value format
 function populateDropDown($data,$selectedKey)
 {
+	echo "<br>KEY= $selectedKey";
 	foreach($data as $key=>$value)
 	{
 		echo "<option value='$key' ";
@@ -64,6 +65,7 @@ function getAllHotels()
 	return $stateArray;
 }
 
+
 //To fetch all the states along with ID used in incstates.php and incCities.php to populate dropdown
 function getAllStates()
 {
@@ -79,6 +81,49 @@ function getAllStates()
 	return $stateArray;
 }
 
+function allStatesInDropDown($stateId)   //Call this function to get all states in dropdown and retain value while post method
+{
+	$stateArray = getAllStates();
+	foreach($stateArray as $value)
+	{
+		$data = array ($value['id']=>$value['name']);
+		populateDropDown($data, $stateId);
+	}
+}
+
+function getAllCities($stateId)
+{
+	if($stateId>0)
+	{
+		global $db;
+		$query = "SELECT id, name FROM city WHERE stateId = {$stateId} ORDER BY name";
+		$results = mysqli_query($db,$query) or die(mysqli_error($db));
+		while($row=mysqli_fetch_assoc($results))
+		{
+			$cityArray[]=$row;
+		}
+
+		return $cityArray;
+	}
+	else
+	{
+		$cityArray = array();
+		return $cityArray;
+	}
+}
+
+function allCitiesInDropDown($stateId,$cityId)
+{
+	$cityArray = getAllCities($stateId);
+	foreach($cityArray as $value)
+	{
+		$data = array ($value['id']=>$value['name']);
+		populateDropDown($data, $cityId);
+		echo "In allcitiesindropodown $cityId";
+	}
+}
+
+
 // To fetch all amenities and return an array that could be printed directly as done in amenities.php
 function getAllAmenities()
 {
@@ -93,9 +138,10 @@ function getAllAmenities()
 	return $amenitiesArray;
 }
 
+
+/*
 function allStatesInDropDown($stateId)   //Call this function to get all states in dropdown and retain value while post method
 {
-	echo "In allStatesInDropDown $stateId";
 	$stateArray = getAllStates();
 	foreach($stateArray as $value)
 	{
@@ -103,7 +149,7 @@ function allStatesInDropDown($stateId)   //Call this function to get all states 
 		populateDropDown($data, $stateId);
 	}
 }
-
+*/
 function oddEvenRows($class)
 {
  	//global $odd;
